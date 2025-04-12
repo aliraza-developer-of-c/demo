@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | MyCompany{% endblock %}
+
+{% block content %}
+<h2>Add New Employee</h2>
+
+{% if messages %}
+  {% for message in messages %}
+    <p style="color: green; font-weight: bold;">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data" class="employee-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="submit-btn">Add Employee</button>
+</form>
+
+<style>
+    /* Styling for the form */
+    .employee-form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f7fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .employee-form h2 {
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .employee-form p {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .employee-form label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .employee-form input, .employee-form select, .employee-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .employee-form input[type="file"] {
+        padding: 6px;
+    }
+
+    .employee-form .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .employee-form .submit-btn:hover {
+        background-color: #45a049;
+    }
+
+    /* Success message styling */
+    .employee-form p {
+        text-align: center;
+        font-size: 16px;
+    }
+</style>
+
+{% endblock %}

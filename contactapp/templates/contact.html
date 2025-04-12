@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | MyCompany{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contact-form {
+            width: 400px;
+            margin: 100px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .contact-form h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            color: green;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contact-form">
+    <h2>Contact Us</h2>
+
+    <form method="post" onsubmit="return submitForm(event)">
+        {% csrf_token %}
+
+        <label>Your Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Your Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Message:</label>
+        <textarea name="message" rows="5" required></textarea>
+
+        <button type="submit" id="submitBtn">Send Message</button>
+    </form>
+
+    <div class="message" id="loadingMessage">Submitting your data...</div>
+    <div class="message" id="successMessage">Thank you for contacting us! We will be in touch shortly.</div>
+</div>
+
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+
+        let formData = new FormData(event.target);
+
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('loadingMessage').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+
+        fetch("", {  // Post to same URL
+            method: "POST",
+            body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            } else {
+                alert("Error submitting the form.");
+            }
+        })
+        .catch(error => {
+            alert("Something went wrong.");
+        });
+    }
+</script>
+
+</body>
+</html>
+
+{% endblock %}

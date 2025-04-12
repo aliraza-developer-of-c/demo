@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | MyCompany{% endblock %}
+
+{% block content %}
+<h2 class="title">Employee List Page</h2>
+
+<table class="employee-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Job Title</th>
+            <th>Contract</th>
+            <th>Resume</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.department }}</td>
+            <td>{{ employee.job_title }}</td>
+            <td>
+                {% if employee.contract %}
+                    <a href="{{ employee.contract.url }}" class="download-link">Download</a>
+                {% else %}
+                    <span class="no-file">No Contract</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if employee.resume %}
+                    <a href="{{ employee.resume.url }}"  class="download-link">Download</a>
+                {% else %}
+                    <span class="no-file">No Resume</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+    .title {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .employee-table {
+        width: 90%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .employee-table th {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 15px;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .employee-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ddd;
+        font-size: 15px;
+        color: #333;
+    }
+
+    .employee-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .employee-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .download-link {
+        color: #2196F3;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .download-link:hover {
+        text-decoration: underline;
+    }
+
+    .no-file {
+        color: #999;
+        font-style: italic;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 768px) {
+        .employee-table, .employee-table thead, .employee-table tbody, .employee-table th, .employee-table td, .employee-table tr {
+            display: block;
+        }
+
+        .employee-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .employee-table td {
+            border: none;
+            position: relative;
+            padding-left: 50%;
+        }
+
+        .employee-table td::before {
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            font-weight: bold;
+            content: attr(data-label);
+            color: #555;
+        }
+    }
+</style>
+{% endblock %}

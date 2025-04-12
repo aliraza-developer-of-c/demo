@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Company{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {margin:0;font-family:Arial, sans-serif;}
+        .header, .footer {background:#333;color:#fff;padding:10px 20px;text-align:center;}
+        .navbar ul {list-style:none;display:flex;justify-content:center;gap:20px;padding:0;margin:0;}
+        .navbar a {color:white;text-decoration:none;}
+        .hero {padding:80px 20px;text-align:center;background:#f4f4f4;}
+        .btn {background:#007bff;color:#fff;padding:10px 20px;text-decoration:none;border-radius:5px;}
+        .footer p {margin:0;}
+        @media (max-width:768px){
+            .navbar ul {flex-direction:column;gap:10px;}
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>Raza Technologies</h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'employee_list' %}">Employees</a></li>
+                <li><a href="{% url 'add_employee' %}">Add Employees</a></li>
+                <li><a href="{% url 'contact_us' %}">Add Employees</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025  Raza Technologies Pvt. Ltd. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
